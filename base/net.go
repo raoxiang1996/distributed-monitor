@@ -40,11 +40,12 @@ type Transmit struct {
 
 func (this *NetAdapterData) Parse(netdata string) error {
 	dataList := strings.Split(netdata, ":")
+
+	this.AdapterName = dataList[0]
+	dataList = splitBySpace(dataList[1])
 	if len(dataList) != NumFiledOfNetDat {
 		return errors.New("net data parse fail")
 	}
-	this.AdapterName = dataList[0]
-	dataList = strings.Split(dataList[1], " ")
 	this.Receive.Bytes, _ = strconv.Atoi(dataList[0])
 	this.Receive.Packets, _ = strconv.Atoi(dataList[1])
 	this.Receive.Errs, _ = strconv.Atoi(dataList[2])

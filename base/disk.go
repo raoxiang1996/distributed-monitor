@@ -3,10 +3,9 @@ package base
 import (
 	"errors"
 	"strconv"
-	"strings"
 )
 
-const NumFileOfDiskInfo = 14
+const NumFileOfDiskInfo = 18
 
 type DiskInfo struct {
 	DiskName  string `json:"disk_name"`
@@ -32,7 +31,7 @@ type DiskData struct {
 }
 
 func (this *DiskData) Parse(diskdata string) error {
-	dataList := strings.Split(diskdata, " ")
+	dataList := splitBySpace(diskdata)
 	if len(dataList) != NumFileOfDiskInfo {
 		return errors.New("disk data parse fail")
 	}
