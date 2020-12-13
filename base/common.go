@@ -28,6 +28,7 @@ func readFile(filename string) (content string, err error) {
 
 }
 
-func split(str string, sep string) []string {
-	return strings.Split(str, sep)
+func splitBySpace(str string) []string {
+	return strings.Fields(str)
+
 }

@@ -2,6 +2,6 @@ package base
 
 import "testing"
 
-func Testdisk(t *testing.T) {
+func TestDisk(t *testing.T) {
 
 }

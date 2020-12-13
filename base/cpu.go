@@ -7,71 +7,74 @@ import (
 )
 
 const (
-	NumFiledOfCpuDat = 10
-	NumFileOfCpuInfo = 24
+	NumFiledOfCpuData = 11
+	NumFileOfCpuInfo  = 25
 )
 
 type CpuData struct {
-	User       int `json:"user"`
-	Nice       int `json:"nice"`
-	System     int `json:"system"`
-	Idle       int `json:"idle"`
-	Iowait     int `json:"iowait"`
-	Irq        int `json:"irq"`
-	Softtirq   int `json:"softtirq"`
-	Stealsolen int `json:"stealsolen"`
-	Guest      int `json:"guest"`
-	Guest_nice int `json:"guest_nice"`
+	Name       string `json:"name"`
+	User       int    `json:"user"`
+	Nice       int    `json:"nice"`
+	System     int    `json:"system"`
+	Idle       int    `json:"idle"`
+	Iowait     int    `json:"iowait"`
+	Irq        int    `json:"irq"`
+	Softtirq   int    `json:"softtirq"`
+	Stealsolen int    `json:"stealsolen"`
+	Guest      int    `json:"guest"`
+	Guest_nice int    `json:"guest_nice"`
 }
 
 type CpuInfo struct {
-	processor       string `json:"processor"`
-	vendor_id       string `json:"vendor_id"`
-	cpu_family      string `json:"cpu_family"`
-	model           string `json:"model"`
-	model_name      string `json:"model_name"`
-	stepping        string `json:"stepping"`
-	microcode       string `json:"microcode"`
-	cpu_MHz         string `json:"cpu_m_hz"`
-	cache_size      string `json:"cache_size"`
-	physical_id     string `json:"physical_id"`
-	siblings        string `json:"siblings"`
-	core_id         string `json:"core_id"`
-	cpu_cores       string `json:"cpu_cores"`
-	apicid          string `json:"apicid"`
-	initial_apicid  string `json:"initial_apicid"`
-	fpu             string `json:"fpu"`
-	fpu_exception   string `json:"fpu_exception"`
-	cpuid_level     string `json:"cpuid_level"`
-	wp              string `json:"wp"`
-	flags           string `json:"flags"`
-	bogomips        string `json:"bogomips"`
-	clflush_size    string `json:"clflush_size"`
-	cache_alignment string `json:"cache_alignment"`
-	address_sizes   string `json:"address_sizes"`
+	processor        string `json:"processor"`
+	vendor_id        string `json:"vendor_id"`
+	cpu_family       string `json:"cpu_family"`
+	model            string `json:"model"`
+	model_name       string `json:"model_name"`
+	stepping         string `json:"stepping"`
+	microcode        string `json:"microcode"`
+	cpu_MHz          string `json:"cpu_m_hz"`
+	cache_size       string `json:"cache_size"`
+	physical_id      string `json:"physical_id"`
+	siblings         string `json:"siblings"`
+	core_id          string `json:"core_id"`
+	cpu_cores        string `json:"cpu_cores"`
+	apicid           string `json:"apicid"`
+	initial_apicid   string `json:"initial_apicid"`
+	fpu              string `json:"fpu"`
+	fpu_exception    string `json:"fpu_exception"`
+	cpuid_level      string `json:"cpuid_level"`
+	wp               string `json:"wp"`
+	flags            string `json:"flags"`
+	bogomips         string `json:"bogomips"`
+	clflush_size     string `json:"clflush_size"`
+	cache_alignment  string `json:"cache_alignment"`
+	address_sizes    string `json:"address_sizes"`
+	power_management string `json:"power_management"`
 }
 
 func (this *CpuData) Parse(stat string) error {
-	dataList := split(stat, " ")
-	if len(dataList) != NumFiledOfCpuDat {
+	dataList := splitBySpace(stat)
+	if len(dataList) != NumFiledOfCpuData {
 		return errors.New("cpu data parse fail")
 	}
 
-	this.User, _ = strconv.Atoi(dataList[0])
-	this.Nice, _ = strconv.Atoi(dataList[1])
-	this.System, _ = strconv.Atoi(dataList[2])
-	this.Idle, _ = strconv.Atoi(dataList[3])
-	this.Iowait, _ = strconv.Atoi(dataList[4])
-	this.Irq, _ = strconv.Atoi(dataList[5])
-	this.Softtirq, _ = strconv.Atoi(dataList[6])
-	this.Stealsolen, _ = strconv.Atoi(dataList[7])
-	this.Guest, _ = strconv.Atoi(dataList[8])
-	this.Guest_nice, _ = strconv.Atoi(dataList[9])
+	this.Name = dataList[0]
+	this.User, _ = strconv.Atoi(dataList[1])
+	this.Nice, _ = strconv.Atoi(dataList[2])
+	this.System, _ = strconv.Atoi(dataList[3])
+	this.Idle, _ = strconv.Atoi(dataList[4])
+	this.Iowait, _ = strconv.Atoi(dataList[5])
+	this.Irq, _ = strconv.Atoi(dataList[6])
+	this.Softtirq, _ = strconv.Atoi(dataList[7])
+	this.Stealsolen, _ = strconv.Atoi(dataList[8])
+	this.Guest, _ = strconv.Atoi(dataList[9])
+	this.Guest_nice, _ = strconv.Atoi(dataList[10])
 	return nil
 }
 
 func (this *CpuInfo) Parse(cpuinfo string) error {
-	dataList := strings.Split(cpuinfo, "\n\n")
+	dataList := strings.Split(cpuinfo, "\n")
 	if len(dataList) != NumFileOfCpuInfo {
 		return errors.New("cpu info parse fail")
 	}
