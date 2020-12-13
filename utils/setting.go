@@ -7,19 +7,19 @@ import (
 )
 
 var (
-	ip   string
-	port int
+	Ip   string
+	Port int
 )
 
 func init() {
 	cfg, err := ini.Load("config/config.ini")
 	if err != nil {
-		fmt.Printf("配置文件读取错误，请检查文件路径", err)
+		fmt.Println("配置文件读取错误，请检查文件路径", err)
 	}
-	LoadServer(cfg)
+	LoadConfig(cfg)
 }
 
-func LoadServer(file *ini.File) {
-	ip = file.Section("server").Key("ip").MustString("127.0.0.1")
-	port = file.Section("server").Key("port").MustInt(2380)
+func LoadConfig(file *ini.File) {
+	Ip = file.Section("server").Key("ip").MustString("127.0.0.1")
+	Port = file.Section("server").Key("port").MustInt(2380)
 }

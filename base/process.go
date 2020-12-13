@@ -1,4 +1,4 @@
-package monitor
+package base
 
 type ProcessData struct {
 	// int pid;
@@ -31,6 +31,21 @@ type ProcessData struct {
 	rsslim  int64 `json:"rsslim"`
 }
 
-func (this *ProcessData) Parse(startdata string) {
+func (this *ProcessData) Parse(startdata *string) {
 
+}
+
+func GetState(state rune) string {
+	switch state {
+	case 'R':
+		return "Running"
+	case 'S':
+		return "Sleeping"
+	case 'D':
+		return "Disk sleep"
+	case 'Z':
+		return "Zombie"
+	default:
+		return "Unknown"
+	}
 }

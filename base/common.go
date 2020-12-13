@@ -1,5 +1,10 @@
 package base
 
+import (
+	"io/ioutil"
+	"strings"
+)
+
 const (
 	CPUUSAGE = "/proc/stat"
 	CPUINFO  = "/proc/cpuinfo"
@@ -13,3 +18,16 @@ const (
 	HOSTOS       = "/etc/issue"
 	HOSTBOOTTIME = "/proc/uptime"
 )
+
+func readFile(filename string) (content string, err error) {
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
+
+}
+
+func split(str string, sep string) []string {
+	return strings.Split(str, sep)
+}
