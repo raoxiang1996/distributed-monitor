@@ -6,6 +6,7 @@ import (
 )
 
 const NumFileOfMemInfo = 42
+const Unit = "KB"
 
 type Meminfo struct {
 	MemTotal          string `json:"mem_total"`
@@ -22,7 +23,7 @@ type Meminfo struct {
 	Unevictable       string `json:"unevictable"`
 	Mlocked           string `json:"mlocked"`
 	SwapTotal         string `json:"swap_total"`
-	SwapFreestring    string `json:"swap_freestring"`
+	SwapFree          string `json:"swap_freestring"`
 	Dirty             string `json:"dirty"`
 	Writeback         string `json:"writeback"`
 	AnonPages         string `json:"anon_pages"`
@@ -57,47 +58,47 @@ func (this *Meminfo) Parse(meminfo string) error {
 	if len(dataList) != NumFileOfMemInfo {
 		return errors.New("memory info parse fail")
 	}
-	this.MemTotal = strings.Split(dataList[0], ":")[1]
-	this.MemFree = strings.Split(dataList[1], ":")[1]
-	this.Buffers = strings.Split(dataList[2], ":")[1]
-	this.Cached = strings.Split(dataList[3], ":")[1]
-	this.SwapCached = strings.Split(dataList[4], ":")[1]
-	this.Active = strings.Split(dataList[5], ":")[1]
-	this.Inactive = strings.Split(dataList[6], ":")[1]
-	this.Active_anon = strings.Split(dataList[7], ":")[1]
-	this.Inactive_anon = strings.Split(dataList[8], ":")[1]
-	this.Active_file = strings.Split(dataList[9], ":")[1]
-	this.Inactive_file = strings.Split(dataList[10], ":")[1]
-	this.Unevictable = strings.Split(dataList[11], ":")[1]
-	this.Mlocked = strings.Split(dataList[12], ":")[1]
-	this.SwapTotal = strings.Split(dataList[13], ":")[1]
-	this.SwapFreestring = strings.Split(dataList[14], ":")[1]
-	this.Dirty = strings.Split(dataList[15], ":")[1]
-	this.Writeback = strings.Split(dataList[16], ":")[1]
-	this.AnonPages = strings.Split(dataList[17], ":")[1]
-	this.Mapped = strings.Split(dataList[18], ":")[1]
-	this.Shmem = strings.Split(dataList[19], ":")[1]
-	this.Slab = strings.Split(dataList[20], ":")[1]
-	this.SReclaimable = strings.Split(dataList[21], ":")[1]
-	this.SUnreclaim = strings.Split(dataList[22], ":")[1]
-	this.KernelStack = strings.Split(dataList[23], ":")[1]
-	this.PageTables = strings.Split(dataList[24], ":")[1]
-	this.NFS_Unstable = strings.Split(dataList[25], ":")[1]
-	this.Bounce = strings.Split(dataList[26], ":")[1]
-	this.WritebackTmp = strings.Split(dataList[27], ":")[1]
-	this.CommitLimit = strings.Split(dataList[28], ":")[1]
-	this.Committed_AS = strings.Split(dataList[29], ":")[1]
-	this.VmallocTotal = strings.Split(dataList[30], ":")[1]
-	this.VmallocUsed = strings.Split(dataList[31], ":")[1]
-	this.VmallocChunk = strings.Split(dataList[32], ":")[1]
-	this.HardwareCorrupted = strings.Split(dataList[33], ":")[1]
-	this.AnonHugePages = strings.Split(dataList[34], ":")[1]
-	this.HugePages_Total = strings.Split(dataList[35], ":")[1]
-	this.HugePages_Free = strings.Split(dataList[36], ":")[1]
-	this.HugePages_Rsvd = strings.Split(dataList[37], ":")[1]
-	this.HugePages_Surp = strings.Split(dataList[38], ":")[1]
-	this.Hugepagesize = strings.Split(dataList[39], ":")[1]
-	this.DirectMap4k = strings.Split(dataList[40], ":")[1]
-	this.DirectMap4M = strings.Split(dataList[41], ":")[1]
+	this.MemTotal = splitBySpace(strings.Split(dataList[0], ":")[1])[0]
+	this.MemFree = splitBySpace(strings.Split(dataList[1], ":")[1])[0]
+	this.Buffers = splitBySpace(strings.Split(dataList[2], ":")[1])[0]
+	this.Cached = splitBySpace(strings.Split(dataList[3], ":")[1])[0]
+	this.SwapCached = splitBySpace(strings.Split(dataList[4], ":")[1])[0]
+	this.Active = splitBySpace(strings.Split(dataList[5], ":")[1])[0]
+	this.Inactive = splitBySpace(strings.Split(dataList[6], ":")[1])[0]
+	this.Active_anon = splitBySpace(strings.Split(dataList[7], ":")[1])[0]
+	this.Inactive_anon = splitBySpace(strings.Split(dataList[8], ":")[1])[0]
+	this.Active_file = splitBySpace(strings.Split(dataList[9], ":")[1])[0]
+	this.Inactive_file = splitBySpace(strings.Split(dataList[10], ":")[1])[0]
+	this.Unevictable = splitBySpace(strings.Split(dataList[11], ":")[1])[0]
+	this.Mlocked = splitBySpace(strings.Split(dataList[12], ":")[1])[0]
+	this.SwapTotal = splitBySpace(strings.Split(dataList[13], ":")[1])[0]
+	this.SwapFree = splitBySpace(strings.Split(dataList[14], ":")[1])[0]
+	this.Dirty = splitBySpace(strings.Split(dataList[15], ":")[1])[0]
+	this.Writeback = splitBySpace(strings.Split(dataList[16], ":")[1])[0]
+	this.AnonPages = splitBySpace(strings.Split(dataList[17], ":")[1])[0]
+	this.Mapped = splitBySpace(strings.Split(dataList[18], ":")[1])[0]
+	this.Shmem = splitBySpace(strings.Split(dataList[19], ":")[1])[0]
+	this.Slab = splitBySpace(strings.Split(dataList[20], ":")[1])[0]
+	this.SReclaimable = splitBySpace(strings.Split(dataList[21], ":")[1])[0]
+	this.SUnreclaim = splitBySpace(strings.Split(dataList[22], ":")[1])[0]
+	this.KernelStack = splitBySpace(strings.Split(dataList[23], ":")[1])[0]
+	this.PageTables = splitBySpace(strings.Split(dataList[24], ":")[1])[0]
+	this.NFS_Unstable = splitBySpace(strings.Split(dataList[25], ":")[1])[0]
+	this.Bounce = splitBySpace(strings.Split(dataList[26], ":")[1])[0]
+	this.WritebackTmp = splitBySpace(strings.Split(dataList[27], ":")[1])[0]
+	this.CommitLimit = splitBySpace(strings.Split(dataList[28], ":")[1])[0]
+	this.Committed_AS = splitBySpace(strings.Split(dataList[29], ":")[1])[0]
+	this.VmallocTotal = splitBySpace(strings.Split(dataList[30], ":")[1])[0]
+	this.VmallocUsed = splitBySpace(strings.Split(dataList[31], ":")[1])[0]
+	this.VmallocChunk = splitBySpace(strings.Split(dataList[32], ":")[1])[0]
+	this.HardwareCorrupted = splitBySpace(strings.Split(dataList[33], ":")[1])[0]
+	this.AnonHugePages = splitBySpace(strings.Split(dataList[34], ":")[1])[0]
+	this.HugePages_Total = splitBySpace(strings.Split(dataList[35], ":")[1])[0]
+	this.HugePages_Free = splitBySpace(strings.Split(dataList[36], ":")[1])[0]
+	this.HugePages_Rsvd = splitBySpace(strings.Split(dataList[37], ":")[1])[0]
+	this.HugePages_Surp = splitBySpace(strings.Split(dataList[38], ":")[1])[0]
+	this.Hugepagesize = splitBySpace(strings.Split(dataList[39], ":")[1])[0]
+	this.DirectMap4k = splitBySpace(strings.Split(dataList[40], ":")[1])[0]
+	this.DirectMap4M = splitBySpace(strings.Split(dataList[41], ":")[1])[0]
 	return nil
 }
