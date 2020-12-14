@@ -1,8 +1,10 @@
-package base
+package base_data
 
 import (
 	"errors"
 	"strconv"
+
+	"distributed-monitor/utils"
 )
 
 const NumFileOfDiskInfo = 18
@@ -31,7 +33,7 @@ type DiskData struct {
 }
 
 func (this *DiskData) Parse(diskdata string) error {
-	dataList := splitBySpace(diskdata)
+	dataList := utils.SplitBySpace(diskdata)
 	if len(dataList) != NumFileOfDiskInfo {
 		return errors.New("disk data parse fail")
 	}

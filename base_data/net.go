@@ -1,6 +1,7 @@
-package base
+package base_data
 
 import (
+	"distributed-monitor/utils"
 	"errors"
 	"strconv"
 	"strings"
@@ -42,7 +43,7 @@ func (this *NetAdapterData) Parse(netdata string) error {
 	dataList := strings.Split(netdata, ":")
 
 	this.AdapterName = dataList[0]
-	dataList = splitBySpace(dataList[1])
+	dataList = utils.SplitBySpace(dataList[1])
 	if len(dataList) != NumFiledOfNetDat {
 		return errors.New("net data parse fail")
 	}

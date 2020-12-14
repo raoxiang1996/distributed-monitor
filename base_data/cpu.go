@@ -1,6 +1,7 @@
-package base
+package base_data
 
 import (
+	"distributed-monitor/utils"
 	"errors"
 	"strconv"
 	"strings"
@@ -54,7 +55,7 @@ type CpuInfo struct {
 }
 
 func (this *CpuData) Parse(stat string) error {
-	dataList := splitBySpace(stat)
+	dataList := utils.SplitBySpace(stat)
 	if len(dataList) != NumFiledOfCpuData {
 		return errors.New("cpu data parse fail")
 	}

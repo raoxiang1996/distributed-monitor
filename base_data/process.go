@@ -1,4 +1,4 @@
-package base
+package base_data
 
 type ProcessData struct {
 	// int pid;

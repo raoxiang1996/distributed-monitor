@@ -1,4 +1,4 @@
-package base
+package utils
 
 import (
 	"io/ioutil"
@@ -19,16 +19,14 @@ const (
 	HOSTBOOTTIME = "/proc/uptime"
 )
 
-func readFile(filename string) (content string, err error) {
+func ReadFile(filename string) (content string, err error) {
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return "", err
 	}
 	return string(data), nil
-
 }
 
-func splitBySpace(str string) []string {
+func SplitBySpace(str string) []string {
 	return strings.Fields(str)
-
 }

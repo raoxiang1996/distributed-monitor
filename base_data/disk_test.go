@@ -1,4 +1,4 @@
-package base
+package base_data
 
 import (
 	"fmt"
@@ -17,8 +17,8 @@ func printDiskData(diskdata *DiskData) {
 
 func TestDisk(t *testing.T) {
 	diskdata := DiskData{}
-	diskdata.Parse("254       0 vda 91229 32 7436534 71590 169762 137488 12319618 247129 0 54880 262364 0 0 0 0")
-	printDiskData(&diskdata)
-	//diskdata.Parse("254       1 vda1 90790 32 7422418 71475 161276 137488 12319618 246835 0 54804 262600 0 0 0 0")
+	//diskdata.Parse("254       0 vda 91229 32 7436534 71590 169762 137488 12319618 247129 0 54880 262364 0 0 0 0")
 	//printDiskData(&diskdata)
+	diskdata.Parse("254       1 vda1 90790 32 7422418 71475 161276 137488 12319618 246835 0 54804 262600 0 0 0 0")
+	printDiskData(&diskdata)
 }
