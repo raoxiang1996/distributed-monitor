@@ -7,3 +7,5 @@ type DiskData struct {
 	WriteSpeed   float32 `json:"write_speed"`
 	time_io_last int64   `json:"time_io_last"`
 }
+
+var diskTicks int64 = 0

@@ -3,11 +3,10 @@ package sampled_data
 import (
 	"distributed-monitor/utils"
 	"fmt"
-	"strconv"
 	"strings"
 )
 
-type HostData struct {
+type HostInfo struct {
 	Hostname      string `json:"hostname"`
 	Os            string `json:"os"`
 	KernelVersion string `json:"kernel_version"`
@@ -17,53 +16,48 @@ type HostData struct {
 	Storage       int64  `json:"storage"`
 }
 
-func (this *HostData) getHostName() {
+func (this *HostInfo) getHostName() {
 	content, err := utils.ReadFile(utils.HOSTNAME)
 	if err != nil {
-		fmt.Printf("get host uptime fail")
+		fmt.Printf("get host name fail, err:%v\n", err)
 	}
-	this.BootTime = strings.Split(content, "\\n \\l")[0]
+	this.Hostname = content
 }
 
-func (this *HostData) getOS() {
+func (this *HostInfo) getOS() {
 	content, err := utils.ReadFile(utils.HOSTOS)
 	if err != nil {
-		fmt.Printf("get host uptime fail")
+		fmt.Printf("get host Os fail, err:%v\n", err)
 	}
-	this.BootTime = content
+	this.Os = strings.Split(content, "\\n \\l")[0]
 }
 
-func (this *HostData) getKernelVersion() {
+func (this *HostInfo) getKernelVersion() {
 	content, err := utils.ReadFile(utils.HOSTKERNEL)
 	if err != nil {
-		fmt.Printf("get host uptime fail")
+		fmt.Printf("get host kernel version fail, err:%v\n", err)
 	}
-	this.BootTime = utils.SplitBySpace(content)[0]
+	this.KernelVersion = utils.SplitBySpace(content)[2]
 }
 
-func (this *HostData) getHostUpTime() {
+func (this *HostInfo) getHostUpTime() {
 	content, err := utils.ReadFile(utils.HOSTBOOTTIME)
 	if err != nil {
-		fmt.Printf("get host uptime fail")
+		fmt.Printf("get host uptime fail, err:%v\n", err)
 	}
 	this.BootTime = utils.SplitBySpace(content)[0]
 }
 
-func (this *HostData) GetHostRamSize() {
+func (this *HostInfo) GetHostRamSize() {
 
 }
 
-func (this *HostData) GetHostStorageSize() {
+func (this *HostInfo) GetHostStorageSize() {
 
 }
 
 func getLong(status string, key string) (result int, err error) {
-	pos := strings.Index(status, key)
-	if pos != -1 || pos != 0 {
-		s := status[pos+len(key):]
-		result, err = strconv.Atoi(s)
-	}
-	return
+	return 0, nil
 }
 
 func getBootTime(stat string) (int, error) {

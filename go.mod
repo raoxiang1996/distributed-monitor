@@ -3,6 +3,7 @@ module distributed-monitor
 go 1.15
 
 require (
+	bou.ke/monkey v1.0.2
 	github.com/coreos/etcd v3.3.25+incompatible // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd v0.0.0-20191104093116-d3cd4ed1dbcf // indirect
@@ -16,3 +17,5 @@ require (
 )
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
+
+replace bou.ke/monkey => github.com/bouk/monkey v1.0.2

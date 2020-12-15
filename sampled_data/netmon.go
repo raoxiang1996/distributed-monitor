@@ -11,3 +11,5 @@ type NetAdapterInfo struct {
 func (*NetAdapterInfo) GetNetAdapterInfo() {
 
 }
+
+var netTicks int64 = 0
