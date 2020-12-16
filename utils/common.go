@@ -1,17 +1,19 @@
 package utils
 
 import (
+	"bufio"
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
 const (
-	CPUUSAGE = "/proc/stat"
-	CPUINFO  = "/proc/cpuinfo"
-	MEMORY   = "/proc/meminfo"
-	DISK     = "/proc/diskstats"
-	NETWORK  = "/proc/net/dev"
-	PROCESS  = ""
+	CPUUSAGE    = "/proc/stat"
+	CPUINFO     = "/proc/cpuinfo"
+	MEMORYINFO  = "/proc/meminfo"
+	DISKINFO    = "/proc/diskstats"
+	NETWORKINFO = "/proc/net/dev"
+	PROCESSINFO = ""
 
 	HOSTNAME     = "/proc/sys/kernel/hostname"
 	HOSTKERNEL   = "/proc/version"
@@ -25,6 +27,24 @@ func ReadFile(filename string) (content string, err error) {
 		return "", err
 	}
 	return string(data), nil
+}
+
+func ReadLine(filename string) (string, error) {
+	f, err := os.Open(filename)
+	defer f.Close()
+	if nil == err {
+		br := bufio.NewReader(f)
+		for {
+			line, err := br.ReadBytes('\n')
+			if err != nil {
+				return "", err
+			} else {
+				return string(line), nil
+			}
+		}
+	} else {
+		return "", err
+	}
 }
 
 func SplitBySpace(str string) []string {
